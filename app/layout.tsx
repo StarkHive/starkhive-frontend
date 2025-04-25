@@ -1,16 +1,9 @@
-import type { Metadata } from "next";
-import { DM_Sans } from 'next/font/google';
 import "./globals.css";
-import Footer from "@/components/ui/footer";
-import Navbar from "@/components/Navbar";
+import type { ReactNode } from "react";
 
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-
-export const metadata: Metadata = {
-    title: 'Starkhive',
-    description: 'Starkhive: New Layout Ready',
+export const metadata = {
+    title: "Starkhive",
+    description: "Starkhive: New Layout Ready",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -23,15 +16,4 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </body>
         </html>
     );
-}>) {
-  return (
-    <html lang="en">
-      <body className={dmSans.variable}>
-        <Navbar/>
-        {children}
-
-        <Footer/>
-      </body>
-    </html>
-  );
 }
