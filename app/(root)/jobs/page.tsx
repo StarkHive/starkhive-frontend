@@ -1,11 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-const Jobs = () => {
-  return (
-    <div>
-        <h1>Jobs</h1>
-    </div>
-  )
+export default function Jobs() {
+    return null;
 }
-
-export default Jobs
