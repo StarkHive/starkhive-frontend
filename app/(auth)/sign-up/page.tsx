@@ -14,19 +14,6 @@ const Input = ({
 	label: string;
 	type: string;
 	name: string;
-	placeholder: string;
-}) => {
-	const [showPassword, setShowPassword] = useState(false);
-	const isPassword = type === "password";
-
-	return (
-		<div className="flex flex-col gap-1 relative">
-			<label htmlFor={name} className=" text-white">
-				{label}
-			</label>
-			<div className="relative">
-				<input
-					type={isPassword && showPassword ? "text" : type}
 					id={name}
 					name={name}
 					required

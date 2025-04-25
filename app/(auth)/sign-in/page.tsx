@@ -11,19 +11,6 @@ export default function SignIn() {
       <div className="relative w-1/2 h-screen hidden lg:block">
         <Image
           src="/assets/images/login-image.jpeg"
-          fill
-          className="object-cover"
-          alt="Login Illustration"
-        />
-      </div>
-
-      <div className="w-full lg:w-1/2 h-screen flex flex-col justify-center items-center bg-[#001219]">
-        <div className="text-center">
-          <h1 className="text-3xl font-semibold text-[#0FA5AA]">
-            Welcome Back
-          </h1>
-          <p className="text-gray-400 mt-2">Sign in to your account</p>
-        </div>
 
         <form className="w-[80%] lg:w-[70%] md:p-6 mt-6">
           <div className="flex flex-col">
