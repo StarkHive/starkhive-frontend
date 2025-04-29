@@ -1,8 +1,21 @@
+import { CTASection } from "@/components/cta-section";
+import { FeaturesSection } from "@/components/feautures-section";
+import { HeroSection } from "@/components/hero-section";
+import { HowItWorks } from "@/components/how-it-works";
+import { JobListingsRedesign } from "@/components/job-listings-redesign";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/ui/footer";
+
 export default function Home() {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="text-3xl font-bold">Coming Soon</h1>
-            <p className="text-gray-500 mt-2">New Layout Ready</p>
+        <div className="min-h-screen bg-grid-pattern bg-black text-white px-20">
+            <Navbar />
+            <HeroSection />
+            <FeaturesSection />
+            <HowItWorks />
+            <JobListingsRedesign />
+            <CTASection />
+            <Footer />
         </div>
     );
 }
