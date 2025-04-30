@@ -170,7 +170,7 @@ body {
 }
 
 /* StarkHive specific styles */
-.bg-grid-pattern {
+/* .bg-grid-pattern {
     background-image: linear-gradient(
             to right,
             rgba(255, 0, 208, 0.1) 1px,
@@ -178,4 +178,73 @@ body {
         ),
         linear-gradient(to bottom, rgba(255, 0, 208, 0.1) 1px, transparent 1px);
     background-size: 40px 40px;
+} */
+
+/* StarkHive specific styles */
+.bg-grid-pattern {
+    background-image: radial-gradient(
+            rgba(255, 0, 208, 0.15) 1px,
+            transparent 1px
+        ),
+        linear-gradient(to right, rgba(255, 0, 208, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 0, 208, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px, 40px 40px, 40px 40px;
+    background-position: 0 0, 0 0, 0 0;
+}
+
+/* Gradient text */
+.gradient-text {
+    background: linear-gradient(90deg, #ff00d0 0%, #0900ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline;
+}
+
+/* StarkHive hero background with grid pattern */
+.starkhive-hero-bg {
+    position: relative;
+    background-color: #000000;
+    overflow: hidden;
+}
+
+/* Grid container */
+.grid-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Grid cells */
+.grid-cell {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(255, 0, 255, 0.1);
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.1);
+    background-color: rgba(255, 0, 255, 0.02);
+}
+
+/* Left grid */
+.grid-left .grid-cell {
+    left: 0;
+}
+
+/* Right grid */
+.grid-right .grid-cell {
+    right: 0;
+}
+
+/* Top grid */
+.grid-top .grid-cell {
+    top: 0;
+}
+
+/* Bottom grid */
+.grid-bottom .grid-cell {
+    bottom: 0;
 }
