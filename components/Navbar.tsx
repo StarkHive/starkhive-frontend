@@ -1,119 +1,137 @@
 "use client";
 
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { WalletModal } from "@/components/wallet-modal";
+import { useWallet } from "@/components/wallet-provider";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
-import { Moon, Wallet, Menu, X } from "lucide-react";
-import { Button } from "./ui/button";
 
-const logo = "/assets/images/logo.jpeg";
+export function Navbar() {
+    const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+    const { isConnected, walletAddress, disconnectWallet } = useWallet();
+    const pathname = usePathname();
 
-const Navbar = () => {
-  const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+    const openWalletModal = () => {
+        setIsWalletModalOpen(true);
+    };
 
-  const navLinks = [
-    { label: "Jobs", url: "/jobs" },
-    { label: "Talents", url: "/talents" },
-    { label: "How it works", url: "/how-it-works" },
-    { label: "About", url: "/about" },
-  ];
+    const closeWalletModal = () => {
+        setIsWalletModalOpen(false);
+    };
 
-  return (
-    <nav className="w-full bg-[#001219] flex justify-between items-center py-3 px-4 md:px-[8%]">
-      {/* Logo */}
-      <Link href="/">
-        <div className="flex items-center gap-1 md:gap-3">
-          <Image src={logo} alt="logo" height={120} width={120} className="h-8 w-8" />
-          <h1 className="text-white text-xl font-semibold">StarkHive</h1>
-        </div>
-      </Link>
+    const formatWalletAddress = (address: string) => {
+        return `${address.slice(0, 6)}...${address.slice(-4)}`;
+    };
 
-      {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center gap-6">
-        <ul className="flex items-center gap-7">
-          {navLinks.map((navLink, index) => (
-            <li key={index}>
-              <Link
-                href={navLink.url}
-                className={`cursor-pointer text-[#94A3B8] hover:text-white transition-colors text-base ${
-                  pathname === navLink.url ? "text-white font-semibold" : ""
-                }`}
-              >
-                {navLink.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    const isActive = (path: string) => {
+        return pathname === path;
+    };
 
-        {/* Theme Toggle Button */}
-        <button className="text-white mx-4" aria-label="Toggle dark mode">
-          <Moon size={20} />
-        </button>
+    return (
+        <header
+            className="relative sticky top-0
+    container mx-auto px-4 py-4
+    flex items-center justify-between
 
-        {/* Wallet Button */}
-        <Button className="bg-teal-500 hover:bg-white hover:text-teal-500 transition duration-300 ease-in-out flex items-center gap-2">
-          <Wallet size={18} />
-          Connect Wallet
-        </Button>
-      </div>
-
-      {/* Mobile Controls: Menu + Theme Toggle */}
-      <div className="flex items-center gap-4 lg:hidden">
-        {/* Dark Mode Toggle */}
-        <button className="text-white" aria-label="Toggle dark mode">
-          <Moon size={20} />
-        </button>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="text-white"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
+    after:content-['']          
+    after:absolute after:left-0 after:bottom-0
+    after:w-full after:h-[2px]  
+    after:bg-gradient-to-r
+      after:from-[#FF1CF7]
+      after:to-[#0900FF]"
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </div>
+            <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                    <Link href="/" className="flex items-center gap-2">
+                        <Image
+                            src="/SVG.png"
+                            alt="Logo"
+                            width={32}
+                            height={32}
+                        />
+                        <span className="font-bold font-inter text-lg">
+                            StarkHive
+                        </span>
+                    </Link>
+                </div>
+                <nav className="hidden md:flex items-center space-x-8">
+                    <Link
+                        href="/jobs"
+                        className={`text-sm transition-colors font-inter font-semibold ${
+                            isActive("/jobs")
+                                ? "text-starkhive-purple"
+                                : "text-white hover:text-starkhive-purple"
+                        }`}
+                    >
+                        Jobs
+                    </Link>
+                    <Link
+                        href="/talent"
+                        className={`text-sm transition-colors font-inter font-semibold ${
+                            isActive("/talent")
+                                ? "text-starkhive-purple"
+                                : "text-white hover:text-starkhive-purple"
+                        }`}
+                    >
+                        Talent
+                    </Link>
+                    <Link
+                        href="/how-it-works"
+                        className={`text-sm transition-colors font-inter font-semibold ${
+                            isActive("/how-it-works")
+                                ? "text-starkhive-purple"
+                                : "text-white hover:text-starkhive-purple"
+                        }`}
+                    >
+                        How It Works
+                    </Link>
+                    <Link
+                        href="/about"
+                        className={`text-sm transition-colors font-inter font-semibold ${
+                            isActive("/about")
+                                ? "text-starkhive-purple"
+                                : "text-white hover:text-starkhive-purple"
+                        }`}
+                    >
+                        About
+                    </Link>
+                </nav>
 
-      {/* Sidebar (Right) */}
-      <div
-        className={`fixed top-0 right-0 h-full w-64 bg-[#001219] text-white transform ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        } transition-transform duration-300 ease-in-out shadow-lg flex flex-col py-6 px-8`}
-      >
-        {/* Close Button */}
-        <button className="text-white self-end mb-6" onClick={() => setIsOpen(false)}>
-          <X size={28} />
-        </button>
+                {isConnected && walletAddress ? (
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm text-zinc-400">
+                            {formatWalletAddress(walletAddress)}
+                        </span>
+                        <Button
+                            variant="outline"
+                            className="border-starkhive-purple text-starkhive-purple hover:bg-starkhive-purple/10 rounded-md px-4 py-2 text-sm"
+                            onClick={disconnectWallet}
+                        >
+                            Disconnect
+                        </Button>
+                    </div>
+                ) : (
+                    <Button
+                        className="bg-gradient-to-r from-[#FF1CF7] to-[#0900FF] hover:bg-gradient-to-r hover:from-[#FF1CF7]/90 hover:to-[#0900FF]/90 text-white rounded-md px-4 py-2 text-sm"
+                        onClick={openWalletModal}
+                    >
+                        <Image
+                            src="/bag.png"
+                            alt="bag"
+                            width={16}
+                            height={16}
+                        />
+                        Connect Wallet
+                    </Button>
+                )}
+            </div>
 
-        {/* Navigation Links */}
-        <ul className="flex flex-col space-y-4">
-          {navLinks.map((navLink, index) => (
-            <li key={index}>
-              <Link
-                href={navLink.url}
-                className={`text-lg ${
-                  pathname === navLink.url ? "font-semibold text-teal-400" : "text-gray-300"
-                }`}
-                onClick={() => setIsOpen(false)} // Close menu on click
-              >
-                {navLink.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        {/* Connect Wallet Button */}
-        <div className="mt-8">
-          <Button className="w-full bg-teal-500 hover:bg-white hover:text-teal-500 transition duration-300 ease-in-out flex items-center gap-2">
-            <Wallet size={18} />
-            Connect Wallet
-          </Button>
-        </div>
-      </div>
-    </nav>
-  );
-};
-
-export default Navbar;
+            <WalletModal
+                isOpen={isWalletModalOpen}
+                onClose={closeWalletModal}
+            />
+        </header>
+    );
+}
